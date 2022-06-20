@@ -5,12 +5,10 @@ import { NavigationContainer } from "@react-navigation/native";
 
 export type RootStackParamList = {
     Home: undefined;
-    BarDetail: undefined;
+    BarDetail: {barId: number};
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
-
-
 
 export default function App() {
   return (
