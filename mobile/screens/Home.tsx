@@ -1,37 +1,236 @@
-import React from 'react'
-import {Text, View} from 'react-native'
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React from "react";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { RootStackParamList } from "../App";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+type Props = NativeStackScreenProps<RootStackParamList, "Inicio">;
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
-
-interface barI {
-    id: number,
-    name: string
+export interface barI {
+    id: number;
+    name: string;
+    address: string;
+    openingTime: string;
+    menu: [
+        {
+            foodName: string;
+            price: number;
+        }
+    ];
 }
 
 const bars = [
-    {id: 1, name: 'Container'},
-    {id: 2, name: 'Container 2'},
-    {id: 3, name: 'Meu escritorio'},
-]
+    {
+        id: 1,
+        name: "Container Bar Carvoeira",
+        address: "Carvoeira, Florianopolis.",
+        openingTime: "18h-00h",
+        menu: [
+            {
+                foodName: "Risoto",
+                price: 30,
+            },
+            {
+                foodName: "Bolacha",
+                price: 5,
+            },
+        ],
+    },
+    {
+        id: 2,
+        name: "Container Bar Pantanal",
+        address: "Pantanal, Florianopolis.",
+        openingTime: "18h-00h",
+        menu: [
+            {
+                foodName: "Marisco",
+                price: 30,
+            },
+            {
+                foodName: "Bolacha",
+                price: 5,
+            },
+        ],
+    },
+    {
+        id: 3,
+        name: "Meu Escritorio Bar",
+        address: "Pantanal, Florianopolis.",
+        openingTime: "18h-00h",
+        menu: [
+            {
+                foodName: "Bacalhau",
+                price: 30,
+            },
+            {
+                foodName: "Bolacha",
+                price: 5,
+            },
+        ],
+    },
+    {
+        id: 4,
+        name: "Container Bar Carvoeira",
+        address: "Carvoeira, Florianopolis.",
+        openingTime: "18h-00h",
+        menu: [
+            {
+                foodName: "Risoto",
+                price: 30,
+            },
+            {
+                foodName: "Bolacha",
+                price: 5,
+            },
+        ],
+    },
+    {
+        id: 5,
+        name: "Container Bar Pantanal",
+        address: "Pantanal, Florianopolis.",
+        openingTime: "18h-00h",
+        menu: [
+            {
+                foodName: "Marisco",
+                price: 30,
+            },
+            {
+                foodName: "Bolacha",
+                price: 5,
+            },
+        ],
+    },
+    {
+        id: 6,
+        name: "Meu Escritorio Bar",
+        address: "Pantanal, Florianopolis.",
+        openingTime: "18h-00h",
+        menu: [
+            {
+                foodName: "Bacalhau",
+                price: 30,
+            },
+            {
+                foodName: "Bolacha",
+                price: 5,
+            },
+        ],
+    },
+    {
+        id: 7,
+        name: "Container Bar Carvoeira",
+        address: "Carvoeira, Florianopolis.",
+        openingTime: "18h-00h",
+        menu: [
+            {
+                foodName: "Risoto",
+                price: 30,
+            },
+            {
+                foodName: "Bolacha",
+                price: 5,
+            },
+        ],
+    },
+    {
+        id: 8,
+        name: "Container Bar Pantanal",
+        address: "Pantanal, Florianopolis.",
+        openingTime: "18h-00h",
+        menu: [
+            {
+                foodName: "Marisco",
+                price: 30,
+            },
+            {
+                foodName: "Bolacha",
+                price: 5,
+            },
+        ],
+    },
+    {
+        id: 9,
+        name: "Meu Escritorio Bar",
+        address: "Pantanal, Florianopolis.",
+        openingTime: "18h-00h",
+        menu: [
+            {
+                foodName: "Bacalhau",
+                price: 30,
+            },
+            {
+                foodName: "Bolacha",
+                price: 5,
+            },
+        ],
+    },
+];
 
 const Home = ({ navigation }: Props) => {
-
     return (
         <SafeAreaView>
-            {bars.map((bar: barI) => {
-                return (
-                    <Text style={{marginVertical: 10}} key={bar.id} onPress={() => navigation.navigate('BarDetail', {barId: bar.id})}>
-                        {bar.name}
-                    </Text>
-                )
-            })}
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <View style={styles.container}>
+                    <Text style={styles.barTitle}>Lista de Bares</Text>
+                    {bars.map((bar: any) => {
+                        return (
+                            <Pressable
+                                style={styles.listItem}
+                                key={bar.id}
+                                onPress={() =>
+                                    navigation.navigate("Detalhes", {
+                                        bar: bar,
+                                    })
+                                }
+                            >
+                                <View style={styles.titleContainer}>
+                                    <Text style={styles.title}>{bar.name}</Text>
+                                    <Text style={styles.text}>
+                                        {bar.openingTime}
+                                    </Text>
+                                </View>
+                                <Text style={styles.text}>{bar.address}</Text>
+                            </Pressable>
+                        );
+                    })}
+                </View>
+            </ScrollView>
         </SafeAreaView>
-    )
-}
+    );
+};
 
-export default Home
+const styles = StyleSheet.create({
+    container: {
+        alignItems: "center",
+    },
+    listItem: {
+        marginBottom: 20,
+        backgroundColor: "#aeaeae",
+        padding: 15,
+        borderRadius: 10,
+        borderTopLeftRadius: 0,
+        width: 300,
+        borderLeftWidth: 4,
+        borderLeftColor: "black",
+    },
+    barTitle: {
+        fontSize: 30,
+        fontWeight: "bold",
+        marginBottom: 20,
+    },
+    titleContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+    },
+    title: {
+        fontSize: 18,
+        fontWeight: "bold",
+    },
+    text: {
+        fontSize: 15,
+    },
+});
+
+export default Home;
