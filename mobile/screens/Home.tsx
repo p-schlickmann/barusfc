@@ -18,6 +18,7 @@ export interface barI {
             price: number;
         }
     ];
+    locationLink: string;
 }
 
 const bars = [
@@ -36,6 +37,7 @@ const bars = [
                 price: 5,
             },
         ],
+        locationLink: "https://g.page/CTNRBAR?share",
     },
     {
         id: 2,
@@ -52,6 +54,7 @@ const bars = [
                 price: 5,
             },
         ],
+        locationLink: "https://goo.gl/maps/tGyCfDqJTY68Gpn47",
     },
     {
         id: 3,
@@ -68,102 +71,7 @@ const bars = [
                 price: 5,
             },
         ],
-    },
-    {
-        id: 4,
-        name: "Container Bar Carvoeira",
-        address: "Carvoeira, Florianopolis.",
-        openingTime: "18h-00h",
-        menu: [
-            {
-                foodName: "Risoto",
-                price: 30,
-            },
-            {
-                foodName: "Bolacha",
-                price: 5,
-            },
-        ],
-    },
-    {
-        id: 5,
-        name: "Container Bar Pantanal",
-        address: "Pantanal, Florianopolis.",
-        openingTime: "18h-00h",
-        menu: [
-            {
-                foodName: "Marisco",
-                price: 30,
-            },
-            {
-                foodName: "Bolacha",
-                price: 5,
-            },
-        ],
-    },
-    {
-        id: 6,
-        name: "Meu Escritorio Bar",
-        address: "Pantanal, Florianopolis.",
-        openingTime: "18h-00h",
-        menu: [
-            {
-                foodName: "Bacalhau",
-                price: 30,
-            },
-            {
-                foodName: "Bolacha",
-                price: 5,
-            },
-        ],
-    },
-    {
-        id: 7,
-        name: "Container Bar Carvoeira",
-        address: "Carvoeira, Florianopolis.",
-        openingTime: "18h-00h",
-        menu: [
-            {
-                foodName: "Risoto",
-                price: 30,
-            },
-            {
-                foodName: "Bolacha",
-                price: 5,
-            },
-        ],
-    },
-    {
-        id: 8,
-        name: "Container Bar Pantanal",
-        address: "Pantanal, Florianopolis.",
-        openingTime: "18h-00h",
-        menu: [
-            {
-                foodName: "Marisco",
-                price: 30,
-            },
-            {
-                foodName: "Bolacha",
-                price: 5,
-            },
-        ],
-    },
-    {
-        id: 9,
-        name: "Meu Escritorio Bar",
-        address: "Pantanal, Florianopolis.",
-        openingTime: "18h-00h",
-        menu: [
-            {
-                foodName: "Bacalhau",
-                price: 30,
-            },
-            {
-                foodName: "Bolacha",
-                price: 5,
-            },
-        ],
+        locationLink: "https://goo.gl/maps/g1GdGAht56pff3ZBA",
     },
 ];
 
@@ -172,7 +80,7 @@ const Home = ({ navigation }: Props) => {
         <SafeAreaView>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.container}>
-                    <Text style={styles.barTitle}>Lista de Bares</Text>
+                    <Text style={styles.barTitle}>BARUFSC</Text>
                     {bars.map((bar: any) => {
                         return (
                             <Pressable

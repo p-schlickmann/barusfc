@@ -1,5 +1,12 @@
 import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+    Linking,
+    Pressable,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
@@ -13,8 +20,13 @@ const BarDetail = ({ route }: Props) => {
         <SafeAreaView>
             <View style={styles.container}>
                 <Text style={styles.title}>{bar.name}</Text>
-                <Text>Endereço: {bar.address}</Text>
                 <Text>Horário de Funcionamento: {bar.openingTime}</Text>
+                <Pressable
+                    onPress={() => Linking.openURL(bar.locationLink)}
+                    style={styles.seeButton}
+                >
+                    <Text>Ver endereço</Text>
+                </Pressable>
                 <Text
                     style={[styles.title, { marginTop: 40, marginBottom: 10 }]}
                 >
@@ -67,6 +79,12 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 15,
+    },
+    seeButton: {
+        marginTop: 20,
+        backgroundColor: "#aeaeae",
+        padding: 10,
+        borderRadius: 10,
     },
 });
 
