@@ -1,23 +1,25 @@
 import React from "react";
-import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Linking, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
-import MapView, { Callout, Marker, PROVIDER_GOOGLE } from "react-native-maps";
-// @ts-ignore
-import mapMarker from "../assets/map-marker.png";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Detalhes">;
 
 const BarDetail = ({ route }: Props) => {
     const { bar } = route.params;
-
+    console.log(bar);
     return (
         <SafeAreaView>
             <View style={styles.container}>
                 <Text style={styles.title}>{bar.name}</Text>
-                <Text>Endereço: {bar.address}</Text>
-                <Text>Horário de Funcionamento: {bar.openingTime}</Text>
+                <Text>Horário de Funcionamento: {bar.opening_time}</Text>
+                <Pressable
+                    onPress={() => Linking.openURL(bar.location_link)}
+                    style={styles.seeButton}
+                >
+                    <Text>Ver endereço</Text>
+                </Pressable>
                 <Text
                     style={[styles.title, { marginTop: 40, marginBottom: 10 }]}
                 >
@@ -26,33 +28,14 @@ const BarDetail = ({ route }: Props) => {
                 <ScrollView showsVerticalScrollIndicator={false}>
                     {bar.menu.map((food) => {
                         return (
-                            <View key={food.foodName} style={styles.listItem}>
+                            <View key={food.food_name} style={styles.listItem}>
                                 <Text>
-                                    {food.foodName} - R${food.price}
+                                    {food.food_name} - R${food.price}
                                 </Text>
                             </View>
                         );
                     })}
                 </ScrollView>
-                <MapView
-                    provider={PROVIDER_GOOGLE}
-                    style={styles.map}
-                    initialRegion={{
-                        latitude: -16.7411414,
-                        longitude: -49.351167,
-                        latitudeDelta: 0.008,
-                        longitudeDelta: 0.008,
-                    }}
-                >
-                    <Marker
-                        icon={mapMarker}
-                        coordinate={{
-                            latitude: -16.7411414,
-                            longitude: -49.351167,
-                        }}
-                    >
-                    </Marker>
-                </MapView>
             </View>
         </SafeAreaView>
     );
@@ -90,24 +73,11 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 15,
     },
-    map: {
-        width: Dimensions.get("screen").width,
-        height: Dimensions.get("screen").height,
-    },
-
-    calloutContainer: {
-        width: 160,
-        height: 46,
-        paddingHorizontal: 16,
-        backgroundColor: "rgba(255, 255, 255, 0.90)",
-        borderRadius: 16,
-        justifyContent: "center",
-    },
-
-    calloutText: {
-        fontFamily: "nunito700",
-        color: "#0089a5",
-        fontSize: 14,
+    seeButton: {
+        marginTop: 20,
+        backgroundColor: "#aeaeae",
+        padding: 10,
+        borderRadius: 10,
     },
 });
 

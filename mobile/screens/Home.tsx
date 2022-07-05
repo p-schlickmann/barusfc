@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { RootStackParamList } from "../App";
 import { SafeAreaView } from "react-native-safe-area-context";
+import axios from "axios";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Inicio">;
 
@@ -11,13 +12,14 @@ export interface barI {
     id: number;
     name: string;
     address: string;
-    openingTime: string;
+    opening_time: string;
     menu: [
         {
-            foodName: string;
+            food_name: string;
             price: number;
         }
     ];
+    location_link: string;
 }
 
 const bars = [
@@ -36,6 +38,7 @@ const bars = [
                 price: 5,
             },
         ],
+        locationLink: "https://g.page/CTNRBAR?share",
     },
     {
         id: 2,
@@ -52,6 +55,7 @@ const bars = [
                 price: 5,
             },
         ],
+            locationLink: "https://goo.gl/maps/tGyCfDqJTY68Gpn47",
     },
     {
         id: 3,
@@ -68,111 +72,26 @@ const bars = [
                 price: 5,
             },
         ],
-    },
-    {
-        id: 4,
-        name: "Container Bar Carvoeira",
-        address: "Carvoeira, Florianopolis.",
-        openingTime: "18h-00h",
-        menu: [
-            {
-                foodName: "Risoto",
-                price: 30,
-            },
-            {
-                foodName: "Bolacha",
-                price: 5,
-            },
-        ],
-    },
-    {
-        id: 5,
-        name: "Container Bar Pantanal",
-        address: "Pantanal, Florianopolis.",
-        openingTime: "18h-00h",
-        menu: [
-            {
-                foodName: "Marisco",
-                price: 30,
-            },
-            {
-                foodName: "Bolacha",
-                price: 5,
-            },
-        ],
-    },
-    {
-        id: 6,
-        name: "Meu Escritorio Bar",
-        address: "Pantanal, Florianopolis.",
-        openingTime: "18h-00h",
-        menu: [
-            {
-                foodName: "Bacalhau",
-                price: 30,
-            },
-            {
-                foodName: "Bolacha",
-                price: 5,
-            },
-        ],
-    },
-    {
-        id: 7,
-        name: "Container Bar Carvoeira",
-        address: "Carvoeira, Florianopolis.",
-        openingTime: "18h-00h",
-        menu: [
-            {
-                foodName: "Risoto",
-                price: 30,
-            },
-            {
-                foodName: "Bolacha",
-                price: 5,
-            },
-        ],
-    },
-    {
-        id: 8,
-        name: "Container Bar Pantanal",
-        address: "Pantanal, Florianopolis.",
-        openingTime: "18h-00h",
-        menu: [
-            {
-                foodName: "Marisco",
-                price: 30,
-            },
-            {
-                foodName: "Bolacha",
-                price: 5,
-            },
-        ],
-    },
-    {
-        id: 9,
-        name: "Meu Escritorio Bar",
-        address: "Pantanal, Florianopolis.",
-        openingTime: "18h-00h",
-        menu: [
-            {
-                foodName: "Bacalhau",
-                price: 30,
-            },
-            {
-                foodName: "Bolacha",
-                price: 5,
-            },
-        ],
+        locationLink: "https://goo.gl/maps/g1GdGAht56pff3ZBA",
     },
 ];
 
 const Home = ({ navigation }: Props) => {
+    const [bars, setBars] = useState([])
+
+    useEffect(() => {
+        const fetchBars = async () => {
+            const response = await axios.get('http://localhost:8000/bars')
+            setBars(response.data.bars)
+        }
+        fetchBars()
+    }, [])
+
     return (
         <SafeAreaView>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.container}>
-                    <Text style={styles.barTitle}>Lista de Bares</Text>
+                    <Text style={styles.barTitle}>BARUFSC</Text>
                     {bars.map((bar: any) => {
                         return (
                             <Pressable
@@ -187,7 +106,7 @@ const Home = ({ navigation }: Props) => {
                                 <View style={styles.titleContainer}>
                                     <Text style={styles.title}>{bar.name}</Text>
                                     <Text style={styles.text}>
-                                        {bar.openingTime}
+                                        {bar.opening_time}
                                     </Text>
                                 </View>
                                 <Text style={styles.text}>{bar.address}</Text>
